@@ -158,7 +158,7 @@ async def update_iterations(src_id, iter_no):
         result = JSONResponse(status_code=500, content={"message": f"Error Occurred at DB level - {e.args[0]}"})
 
 
-@router.post("/source-status", status_code=status.HTTP_200_OK, tags=["Perdix"])
+@router.post("/source_status", status_code=status.HTTP_200_OK, tags=["Perdix"])
 async def update_perdix_status(src_id: str, cust_id: str, iter_no: int,  x_token: str = Depends(get_token_header),
                                database: Database = Depends(get_database)
                                ):
@@ -232,7 +232,7 @@ async def get_pending_customers():
         result = JSONResponse(status_code=500, content={"message": f"Error Occurred at DB level - {e.args[0]}"})
 
 
-@router.post("/mandate-status", status_code=status.HTTP_200_OK, tags=["Perdix"])
+@router.post("/mandate_status", status_code=status.HTTP_200_OK, tags=["Perdix"])
 async def pending_mandate_status(x_token: str = Depends(get_token_header), database: Database = Depends(get_database)
                                  ):
     try:

@@ -19,7 +19,7 @@ async def lotus_pay_achdebit_post(context, data):
         print(url)
         str_url = str(url)
         str_data = str(data)
-        achdebit_context_response = requests.post(url, data=data, auth=(api_key, ''))
+        achdebit_context_response = requests.post(url, json=data, auth=(api_key, ''))
         print(f"------achdebit_context_response------{achdebit_context_response}")
         achdebit_context_dict = response_to_dict(achdebit_context_response)
         print(f"-----achdebit_context_dict---{achdebit_context_dict}")

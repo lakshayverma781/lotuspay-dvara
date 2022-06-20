@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Optional
+from typing_extensions import Self
 
 import sqlalchemy
 from pydantic import BaseModel, Field
@@ -65,16 +66,16 @@ class Source3Create(BaseModel):
 
 class NachDebitBase5(BaseModel):
     amount_maximum: Optional[int] = 10000
-    date_first_collection:Optional[str]='2020-01-01'
+    # date_first_collection:Optional[str]='2022-06-20'
     debtor_account_name: Optional[str] = 'DVARA'
-    debtor_account_number: Optional[str] = '123456'
+    debtor_account_number: Optional[str] = '12345678'
     debtor_account_type: Optional[str] = 'savings'
     debtor_agent_mmbid: Optional[str]='ICIC0000001'
-    debtor_email: Optional[str]='test@lotuspay.com'
-    debtor_mobile: Optional[str]='9123456789'
-    frequency: Optional[str] = 'MNTH'
-    reference1: Optional[str] = 'LOAN_ID_123'
-    variant: Optional[str]= "physical"
+    # debtor_email: Optional[str]='test@lotuspay.com'
+    # debtor_mobile: Optional[str]='9123456789'
+    # frequency: Optional[str] = 'MNTH'
+    # reference1: Optional[str] = 'LOAN_ID_123'
+    # variant: Optional[str]= "physical"
 
 
 class Source5Create(BaseModel):
@@ -135,5 +136,33 @@ perdix_customer = sqlalchemy.Table(
     sqlalchemy.Column("bank_account_token", sqlalchemy.String(length=255), nullable=True),
     sqlalchemy.Column("iterations", sqlalchemy.Integer, default=0, nullable=True),
     sqlalchemy.Column("pending", sqlalchemy.Boolean, default=0, nullable=True),
+    sqlalchemy.Column("created_date", sqlalchemy.DateTime(), nullable=True)
+)
+
+
+
+sourceprocess = sqlalchemy.Table(
+    "sourceprocess",
+    source_metadata,
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
+    sqlalchemy.Column("source_process_id", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("object", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("created", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("type", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("status", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("created_date", sqlalchemy.DateTime(), nullable=True)
+)
+
+
+
+sourcewithdraw = sqlalchemy.Table(
+    "sourcewithdraw",
+    source_metadata,
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
+    sqlalchemy.Column("source_withdraw_id", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("object", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("created", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("type", sqlalchemy.String(length=255), nullable=True),
+    sqlalchemy.Column("status", sqlalchemy.String(length=255), nullable=True),
     sqlalchemy.Column("created_date", sqlalchemy.DateTime(), nullable=True)
 )

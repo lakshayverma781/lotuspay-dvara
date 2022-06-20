@@ -146,7 +146,38 @@ async def get_phy_file(
     phy_response = requests.get(url, auth=(api_key, ''))
     print(phy_response)
     print(type(phy_response))
-    return phy_response.text
+    print(type(phy_response.content))
+    
+# move file into static folder 
+    file_path = os.path.abspath(('./static/'))
+    print('------------------PATH',file_path)
+    with open ('PS0036FCWPQP1J.jpg','wb') as f :
+     
+
+     f.write(phy_response.content)
+    basename= f.name 
+    print('-=================',basename) 
+    
+    move_item=shutil.copy(basename,file_path)
+    print("----------------move",move_item)
+    if os.path.exists(move_item):
+        remove=os.remove(basename)
+        print("-----------",remove)
+            
+    else :
+        print("------file_path------", file_path)
+        print("file is not there")
+        move_item=shutil.move(basename,file_path)
+
+
+   
+
+
+
+    
+
+    return FileResponse(move_item) 
+        
     # print(phy_dict)
     # phy_dict = response_to_dict(phy_response)
     # return phy_dict       

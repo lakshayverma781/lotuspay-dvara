@@ -57,7 +57,7 @@ async def create_bank_account(
                 }
                 insert_query = bankaccounts.insert().values(bank_account_info)
                 bank_account_id = await database.execute(insert_query)
-                result = JSONResponse(status_code=200, content={"Customer_id": response_bank_account_id})
+                result = JSONResponse(status_code=200, content={"bank_account_id": response_bank_account_id})
             else:
                 log_id = await insert_logs('MYSQL', 'DB', 'NA', '400', 'problem with lotuspay parameters',
                                            datetime.now())
